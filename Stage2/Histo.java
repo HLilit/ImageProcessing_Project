@@ -18,15 +18,18 @@ public class Histo implements PlugIn {
 		int N = ip.getHeight();
 		int K = 256; // number of intensity values
  
-		ColorProcessor.setWeightingFactors(1,0,0);
+		ColorProcessor.setWeightingFactors(0,0,1);
 		int[] H = ip.getHistogram();
 		double[] L = new double[H.length];
 		int pixelNumber=M*N;
 		
+		L[0] = (double)(H[0])/pixelNumber;
+		System.out.println("Channel:  "+ "BLUE" + "  Intensity:  " + "0" + "  Value:  " + L[0]);
+		
 		for (int i = 1; i < H.length; i++) {
 			L[i] = (double)(H[i])/pixelNumber; //normalize
 			L[i] = L[i - 1] + L[i];            //cumulative histogram
-			System.out.println("Channel:  "+ "RED" + "  Intensity:  " + i + "  Value:  " + L[i]);
-		}	
+			System.out.println("Channel:  "+ "BLUE" + "  Intensity:  " + i + "  Value:  " + L[i]);
+		}
     }
 }
